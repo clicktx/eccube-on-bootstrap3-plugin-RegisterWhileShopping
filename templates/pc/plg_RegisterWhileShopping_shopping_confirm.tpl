@@ -25,9 +25,8 @@
 <!--{if not $plg_RegisterWhileShopping_tpl_login}-->
 <!--{if not $plg_RegisterWhileShopping_email_registered}-->
 
-<div>
-    下記をご記入いただくだけで、注文完了と同時に会員登録ができます。<br />
-    会員登録せずにご購入いただく場合は、下記に何も記入せずにお進みください。
+<div class="alert alert-info">
+    下記をご記入いただくだけで、注文完了と同時に会員登録ができます。会員登録せずにご購入いただく場合は、下記に何も記入せずにお進みください。
 </div>
 <!--{if $plg_RegisterWhileShopping_arrErr.email}-->
     <div class="attention">
@@ -56,52 +55,84 @@
 <input type="hidden" name="day" value="<!--{$plg_RegisterWhileShopping_arrOrder.order_day}-->" />
 <input type="hidden" name="email" value="<!--{$plg_RegisterWhileShopping_arrOrder.order_email}-->" />
 <input type="hidden" name="email02" value="<!--{$plg_RegisterWhileShopping_arrOrder.order_email}-->" />
-<table>
-    <col width="30%" />
-    <col width="70%" />
-
-    <tr>
-        <th>希望するパスワード<span class="attention">※</span><br />
-        </th>
-        <td>
-            <!--{if $plg_RegisterWhileShopping_arrErr.password || $plg_RegisterWhileShopping_arrErr.password02}-->
-                <div class="attention"><!--{$plg_RegisterWhileShopping_arrErr.password}--><!--{$plg_RegisterWhileShopping_arrErr.password02}--></div>
-            <!--{/if}-->
-            <input type="password" name="password" value="<!--{$plg_RegisterWhileShopping_arrFrom.password|h}-->" maxlength="<!--{$smarty.const.PASSWORD_MAX_LEN}-->" style="<!--{$plg_RegisterWhileShopping_arrErr.password|sfGetErrorColor}-->" class="box120" />
-            <p><span class="attention mini">半角英数字<!--{$smarty.const.PASSWORD_MIN_LEN}-->～<!--{$smarty.const.PASSWORD_MAX_LEN}-->文字でお願いします。（記号不可）</span></p>
-            <input type="password" name="password02" value="<!--{$plg_RegisterWhileShopping_arrFrom.password02|h}-->" maxlength="<!--{$smarty.const.PASSWORD_MAX_LEN}-->" style="<!--{$plg_RegisterWhileShopping_arrErr.password|cat:$plg_RegisterWhileShopping_arrErr.password02|sfGetErrorColor}-->" class="box120" />
-            <p><span class="attention mini">確認のために2度入力してください。</span></p>
-        </td>
-    </tr>
-    <tr>
-        <th>パスワードを忘れた時のヒント<span class="attention">※</span></th>
-        <td>
-            <!--{if $plg_RegisterWhileShopping_arrErr.reminder || $plg_RegisterWhileShopping_arrErr.reminder_answer}-->
-                <div class="attention"><!--{$plg_RegisterWhileShopping_arrErr.reminder}--><!--{$plg_RegisterWhileShopping_arrErr.reminder_answer}--></div>
-            <!--{/if}-->
-            質問：
-            <select name="reminder" style="<!--{$plg_RegisterWhileShopping_arrErr.reminder|sfGetErrorColor}-->">
-                <option value="" selected="selected">選択してください</option>
-                <!--{html_options options=$arrReminder selected=$plg_RegisterWhileShopping_arrFrom.reminder}-->
-            </select>
-            <br />
-            答え：<input type="text" name="reminder_answer" value="<!--{$plg_RegisterWhileShopping_arrFrom.reminder_answer|h}-->" style="<!--{$plg_RegisterWhileShopping_arrErr.reminder_answer|sfGetErrorColor}-->; ime-mode: active;" class="box260" />
-        </td>
-    </tr>
-    <tr>
-        <th>メールマガジン送付について<span class="attention">※</span></th>
-        <td>
-            <!--{if $plg_RegisterWhileShopping_arrErr.mailmaga_flg}-->
-                <div class="attention"><!--{$plg_RegisterWhileShopping_arrErr.mailmaga_flg}--></div>
-            <!--{/if}-->
-            <span style="<!--{$plg_RegisterWhileShopping_arrErr.mailmaga_flg|sfGetErrorColor}-->">
-                <input type="radio" name="mailmaga_flg" value="1" id="html" <!--{if $plg_RegisterWhileShopping_arrFrom.mailmaga_flg eq 1}--> checked="checked" <!--{/if}--> /><label for="html">HTMLメール＋テキストメールを受け取る</label><br />
-                <input type="radio" name="mailmaga_flg" value="2" id="text" <!--{if $plg_RegisterWhileShopping_arrFrom.mailmaga_flg eq 2}--> checked="checked" <!--{/if}--> /><label for="text">テキストメールを受け取る</label><br />
-                <input type="radio" name="mailmaga_flg" value="3" id="no" <!--{if $plg_RegisterWhileShopping_arrFrom.mailmaga_flg eq 3}--> checked="checked" <!--{/if}--> /><label for="no">受け取らない</label>
-            </span>
-        </td>
-    </tr>
-</table>
+<div class="jumbotron">
+    <div class="row form-horizontal">
+        <div class="form-group">
+            <label for="password" class="col-md-5 control-label">
+                希望するパスワード（記号可）<span class="attention">※</span>
+            </label>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <div class="col-md-10<!--{if $plg_RegisterWhileShopping_arrErr.password}--> has-error<!--{/if}-->">
+                        <input type="password" id="password" class="box380 top form-control" name="password" value="<!--{$plg_RegisterWhileShopping_arrFrom.password|h}-->" maxlength="<!--{$smarty.const.PASSWORD_MAX_LEN}-->" style="<!--{$plg_RegisterWhileShopping_arrErr.password|sfGetErrorColor}-->" placeholder="半角英数字<!--{$smarty.const.PASSWORD_MIN_LEN}-->～<!--{$smarty.const.PASSWORD_MAX_LEN}-->文字" />
+                        <!--{if $plg_RegisterWhileShopping_arrErr.password}-->
+                            <span class="attention"><!--{$plg_RegisterWhileShopping_arrErr.password}--></span>
+                        <!--{/if}-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10<!--{if $plg_RegisterWhileShopping_arrErr.password02}--> has-error<!--{/if}-->">
+                        <input type="password" class="box380 form-control" name="password02" value="<!--{$plg_RegisterWhileShopping_arrFrom.password02|h}-->" maxlength="<!--{$smarty.const.PASSWORD_MAX_LEN}-->" style="<!--{$plg_RegisterWhileShopping_arrErr.password|cat:$plg_RegisterWhileShopping_arrErr.password02|sfGetErrorColor}-->" placeholder="パスワード確認用" />
+                        <!--{if $plg_RegisterWhileShopping_arrErr.password02}-->
+                            <span class="attention"><!--{$plg_RegisterWhileShopping_arrErr.password02}--></span>
+                        <!--{/if}-->
+                        <div class="mini help-block"><span class="attention">確認のため2度入力してください。</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="reminder" class="col-md-5 control-label">
+                パスワードを忘れた時のヒント<span class="attention">※</span>
+            </label>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <div class="col-md-12<!--{if $plg_RegisterWhileShopping_arrErr.reminder}--> has-error<!--{/if}-->">
+                        <select id="reminder" class="form-control" name="reminder" style="<!--{$plg_RegisterWhileShopping_arrErr.reminder|sfGetErrorColor}-->">
+                            <option value="" selected="selected">質問を選択してください</option>
+                            <!--{html_options options=$arrReminder selected=$plg_RegisterWhileShopping_arrFrom.reminder}-->
+                        </select>
+                        <!--{if $plg_RegisterWhileShopping_arrErr.reminder}-->
+                            <span class="attention"><!--{$plg_RegisterWhileShopping_arrErr.reminder}--></span>
+                        <!--{/if}-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10<!--{if $plg_RegisterWhileShopping_arrErr.reminder_answer}--> has-error<!--{/if}-->">
+                        <input type="text" class="box380 form-control" name="reminder_answer" value="<!--{$plg_RegisterWhileShopping_arrFrom.reminder_answer|h}-->" style="<!--{$plg_RegisterWhileShopping_arrErr.reminder_answer|sfGetErrorColor}-->; ime-mode: active;" placeholder="質問の答え" />
+                        <!--{if $plg_RegisterWhileShopping_arrErr.reminder_answer}-->
+                            <span class="attention"><!--{$plg_RegisterWhileShopping_arrErr.reminder_answer}--></span>
+                        <!--{/if}-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-5 control-label">
+                メールマガジン送付について<span class="attention">※</span>
+            </label>
+            <div class="col-md-7">
+                <div class="form-group">
+                    <div class="col-xs-12<!--{if $plg_RegisterWhileShopping_arrErr.mailmaga_flg}--> has-error<!--{/if}-->">
+                        <div style="<!--{$plg_RegisterWhileShopping_arrErr.mailmaga_flg|sfGetErrorColor}-->">
+                            <!--{html_radios name=mailmaga_flg options=$arrMAILMAGATYPE selected=$plg_RegisterWhileShopping_arrFrom.mailmaga_flg.value assign=mailmagatype}-->
+                            <!--{foreach from=$mailmagatype item=radio}-->
+                                <div class="radio">
+                                    <label>
+                                        <!--{$radio}-->
+                                    </label>
+                                </div>
+                            <!--{/foreach}-->
+                        </div>
+                        <!--{if $plg_RegisterWhileShopping_arrErr.mailmaga_flg}-->
+                            <span class="attention"><!--{$plg_RegisterWhileShopping_arrErr.mailmaga_flg}--></span>
+                        <!--{/if}-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--{else}-->
     <!--{if $plg_RegisterWhileShopping_arrErr.email}-->

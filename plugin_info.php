@@ -22,13 +22,13 @@
 
 class plugin_info{
     static $PLUGIN_CODE         = "RegisterWhileShopping";      // プラグインコード
-    static $PLUGIN_NAME         = "注文完了画面でも会員登録";   // プラグイン名
+    static $PLUGIN_NAME         = "注文完了画面でも会員登録 for EC-CUBE on BootStrap3";   // プラグイン名
     static $PLUGIN_VERSION      = "1.0.1";                      // プラグインバージョン
     static $COMPLIANT_VERSION   = "2.12～2.13系";                     // 対応バージョン
-    static $AUTHOR              = "株式会社サンアットマーク";   // プラグイン作者
-    static $DESCRIPTION         = "購入手続き中に、付加情報を入力することにより注文と同時に会員登録ができます。これにより、非会員や一見客の会員登録率がアップします。"; // プラグインの説明
-    static $PLUGIN_SITE_URL     = "http://www.sunatmark.co.jp/";// プラグインURL
-    static $AUTHOR_SITE_URL     = "http://www.sunatmark.co.jp/";// プラグイン作者URL
+    static $AUTHOR              = "clicktx";   // プラグイン作者
+    static $DESCRIPTION         = "購入手続き中に、付加情報を入力することにより注文と同時に会員登録ができます。これにより、非会員や一見客の会員登録率がアップします。テンプレート「EC-CUBE on BootStrap3」に最適化済。"; // プラグインの説明
+    static $PLUGIN_SITE_URL     = "https://github.com/clicktx/eccube-on-bootstrap3-plugin-RegisterWhileShopping";// プラグインURL
+    static $AUTHOR_SITE_URL     = "http://perl.no-tubo.net";// プラグイン作者URL
     static $CLASS_NAME          = "RegisterWhileShopping";      // プラグインクラス名
     static $HOOK_POINTS         = array(                        // フックポイントとコールバック関数
         array("prefilterTransform", "prefilterTransform"),
